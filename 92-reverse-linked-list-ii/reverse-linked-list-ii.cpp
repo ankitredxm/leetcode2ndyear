@@ -10,60 +10,46 @@
  */
 class Solution {
 public:
-ListNode* reverse(ListNode* head)
-{
-    if(head==NULL||head->next==NULL) return head;
-    ListNode* nhead=reverse(head->next);
-    head->next->next=head;
-    head=head->next;
-    head->next->next=NULL;
-    return nhead;
-}
     ListNode* reverseBetween(ListNode* head, int left, int right) {
-        if(head==NULL||head->next==NULL) return head;
-        if(left==right) return head;
-        else {
-            if(head->next->next==NULL) return reverse(head);
+        
+        ListNode* d=new ListNode(0);
+        d->next=head;
+ListNode* temp=d;
+        ListNode* temp2=d;
+        int l=left;
+        int r=right;
+        while(right>0){
+            temp2=temp2->next;
+            --right;
         }
-        ListNode* ad=head;
-        ListNode* ad1=head;
-        ListNode* ad2=head;
-        ListNode* temp1=head;
-        for(int i=0;i<right;++i){
-            temp1=temp1->next;  // address of 5 stored in temp1
+      
+        
+        while(--left){
+            temp=temp->next;
+            
+
         }
-        ListNode* temp2=head;
-        for(int i=0;i<right-1;++i){
-            temp2=temp2->next;  // address of 4
-        }
-        temp2->next=NULL;
+        if(temp->next!=nullptr&&temp->next->next!=nullptr&&l!=r){
+        ListNode* prev=temp->next;
+        
        
-     for(int i=2;i<=left;++i)
-     {
-       ad1=ad1->next;
-     }
-     ListNode* rev=reverse(ad1);
-     for(int i=2;i<left;++i)
-     {
-         ad=ad->next;
-     }
-     if(left==1) {head=rev;ad2=head;}
-     else
-     ad->next=rev;
-     
+        ListNode* curr=temp->next->next;
+        ListNode* h=temp->next->next->next;
+        
+       
+        while(curr!=temp2&&h!=nullptr&&(r-l)>0){
+            curr->next=prev;
+            --l;--r;
+prev=curr;
+curr=h;
+h=h->next;
+        }
+        curr->next=prev;
+        temp->next->next=h;
 
-     for(int i=2;i<=right;++i)
-     ad2=ad2->next;
-     
-     ad2->next=temp1;
-     
-     return head;
-   
-    //     while(ad1->next!=NULL)
-    //     ad1=ad1->next;
-    //     ad1->next=temp1;
-    //     return ad;
+        temp->next=curr;}
+        return d->next;
 
-
+        
     }
 };
