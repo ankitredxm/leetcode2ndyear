@@ -8,48 +8,41 @@
  */
 class Solution {
 public:
+int len(ListNode* h){
+    int cnt=0;
+    while(h!=NULL){
+        ++cnt;
+        h=h->next;
+    }
+    return cnt;
+}
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-        /// here we will calculate diff 
-        int asize=1;
-        int bsize=1;
-        ListNode* tempa=headA;
-        ListNode* tempb=headB;
-        while(tempa!=NULL)
-        {
-            tempa=tempa->next;
-            ++asize;
-
-        }
-
-        while(tempb!=NULL)
-        {
-            tempb=tempb->next;
-            bsize++;
-        }
-
-        if(asize>bsize)
-        {
-            for(int i=0;i<(asize-bsize);++i)
-            headA=headA->next;
-
-            while(headA!=NULL||headB!=NULL)
-            {
-                if(headA==headB) return headA;
-                headA=headA->next;
-                headB=headB->next;
-            }
-        }else{
-            for(int i=0;i<(bsize-asize);++i)
-            headB=headB->next;
-
-            while(headA!=NULL||headB!=NULL)
-            {
-                if(headA==headB) return headA;
-                headA=headA->next;
-                headB=headB->next;
+        ListNode* temp1=headA;
+        ListNode* temp2=headB;
+        if(len(headA)>len(headB)){
+            int l=len(headA)-len(headB);
+        
+            while(l>0){
+temp1=temp1->next;
+--l;
             }
         }
+        else{
+            int l=len(headB)-len(headA);
+        
+            while(l>0){
+temp2=temp2->next;
+--l;
+            }  
+        }
 
-return NULL;
+
+
+
+        while(temp1!=temp2){
+            temp1=temp1->next;
+            temp2=temp2->next;
+        }
+        return temp1;
     }
 };
