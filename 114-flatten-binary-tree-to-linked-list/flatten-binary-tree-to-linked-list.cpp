@@ -11,28 +11,21 @@
  */
 class Solution {
 public:
-void preorder(TreeNode* root,queue<TreeNode*>& q){
+void op(TreeNode* root,TreeNode** t){
     if(root==NULL) return;
-    q.push(root);
-    preorder(root->left,q);
-    preorder(root->right,q);
+    *t=root;
+    op(root->left,t);
+    op(root->right,t);
 }
     void flatten(TreeNode* root) {
         if(root==NULL) return;
-        queue<TreeNode*> q;
-        preorder(root,q);
-        int s=q.size();
-        TreeNode* ans=q.front();
-        while(--s){
-        TreeNode* r=q.front();
-        q.pop();
-        r->right=q.front();
-        r->left=NULL;
-
+        if(root->left!=NULL){
+            TreeNode* t=nullptr;
+            op(root->left,&t);
+            t->right=root->right;
+            root->right=root->left;
+            root->left=NULL;
         }
-        q.front()->left=NULL;
-        q.front()->right=NULL;
-        root=ans;
+        flatten(root->right);
     }
-
 };
