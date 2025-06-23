@@ -1,20 +1,20 @@
-class Solution {
-public:
-    bool isAnagram(string s, string t) {
-        map<char,int> m;
-       if(s.length()!=t.length()) false;
+class Solution
+{
+    public:
+        bool isAnagram(string s, string t)
+        {
+            map<char, int> m;
+            if (s.length() != t.length())return false;
 
-        for(auto x:s){
-            ++m[x];
+         for(int i=0;i<s.length();++i){
+            m[s[i]]++;
+            m[t[i]]--;
+            if(m[t[i]]==0){
+                m.erase(t[i]);
+            }
+            if(m[s[i]]==0) m.erase(s[i]);
+         }
+
+            return m.size()==0;
         }
-        for(auto x:t){
-          --m[x];
-        }
-       for(auto p:m){
-        if(p.second!=0) return false;
-       }
-
-        return true;
-
-    }
 };
