@@ -21,7 +21,7 @@ public:
         Node* ans=d;
         Node* x=d;
         Node* h=head;
-        map<Node*,Node*> m;
+        unordered_map<Node*,Node*> m;
       
         while(h!=NULL){
            
