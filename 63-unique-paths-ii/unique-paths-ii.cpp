@@ -1,39 +1,23 @@
 class Solution {
 public:
+   int helper(vector<vector<int>>& arr,vector<vector<int>>& dp,int m,int n){
+    if(m<0||n<0||arr[m][n]==1) return 0;
+    if(m==0&&n==0) return 1;
+    
+    if(dp[m][n]!=-1) return dp[m][n];
+
+
+
+    return dp[m][n]=helper(arr,dp,m-1,n)+helper(arr,dp,m,n-1);
+   }
+
+
+
+
     int uniquePathsWithObstacles(vector<vector<int>>& arr) {
         int m=arr.size();
         int n=arr[0].size();
-        
-if(arr[0][0]==1||arr[m-1][n-1]==1) return 0;
-
-           for(int i=0;i<m;++i){
-            for(int j=0;j<n;++j){
-                if(arr[i][j]==1){
-                    arr[i][j]=-1;
-                }
-                
-            }
-        }
-
-   arr[0][0]=1;
-
-        
-        for(int i=0;i<m;++i){
-            for(int j=0;j<n;++j){
-                if(arr[i][j]==-1) continue;
-                int r=i-1;
-                int c=j;
-                if((r>=0&&c>=0)&&(arr[r][c]!=-1)) arr[i][j]+=arr[r][c];
-                r=i;
-                c=j-1;
-                if((r>=0&&c>=0)&&(arr[r][c]!=-1)) arr[i][j]+=arr[r][c];
-
-                if(arr[i][j]==0) arr[i][j]=-1;
-
-                
-              
-            }
-        }
-return (arr[m-1][n-1]==-1)?0:arr[m-1][n-1];
+        vector<vector<int>> dp(m,vector<int>(n,-1));
+        return helper(arr,dp,m-1,n-1);
     }
 };
