@@ -1,16 +1,13 @@
 class Solution {
 public:
-
-int fibo(vector<int>& v,int n)
-{
-    if(n<=1)return n;
-    if(v[n]==-1)
-  v[n]=fibo(v,n-1)+fibo(v,n-2);
-    return v[n];
-}
     int fib(int n) {
-       vector<int> v(n+1,-1);
-       return fibo(v,n);
-
+        if(n==0) return 0;
+        int fib[n+1];
+        fib[0]=0;
+        fib[1]=1;
+        for(int i=2;i<=n;++i){
+            fib[i]=fib[i-1]+fib[i-2];
+        }
+        return fib[n];
     }
 };
