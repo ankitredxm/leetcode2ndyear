@@ -1,23 +1,26 @@
 class Solution {
 public:
-int mxp(int n,vector<int>& dp){
- cout<<n<<endl;
-        if(n<=4) return n;
-        int mxpp=-1;
-        
-            if(dp[n]!=-1) return dp[n];
-        for(int i=1;i<n;++i){
-             mxpp=max(mxpp,i*mxp(n-i,dp));
+    int integerBreak(int n) {
+        // top down
+        if(n==1||n==2) return 1;
+        if(n==3) return 2;
 
+        vector<int> dp(n+1,-1);
+        dp[0]=1;
+        dp[1]=1;
+        dp[2]=2;
+        dp[3]=3;
+        dp[4]=4;
+        int mx=-1;
+        for(int i=5;i<=n;++i){
+            for(int j=1;j<i;++j){
+
+                mx=max(mx,dp[j]*dp[i-j]);
+
+            }
+            dp[i]=mx;
         }
 
-        return dp[n]=mxpp;
-}
-    int integerBreak(int n) {
-
-       if(n==2||n==1)  return 1;
-       if(n==3) return 2;
-       vector<int> dp(n+1,-1);
-       return mxp(n,dp);
+        return dp[n];
     }
 };
