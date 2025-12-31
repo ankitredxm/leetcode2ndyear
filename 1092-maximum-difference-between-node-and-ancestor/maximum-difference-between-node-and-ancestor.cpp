@@ -10,31 +10,32 @@
  * };
  */
 class Solution {
-public: 
-int mx=-1;
+public:
+int diff1=0;
+void diff(TreeNode* root,int mx,int mn){
+        if(!root) return;
+        diff1=max({diff1,abs(mn-root->val),abs(mx-root->val)});
 
-void pre(int x,TreeNode* root){
-    if(root==NULL) return;
-    mx=max(mx,abs(root->val-x));
-    pre(x,root->left);
-    pre(x,root->right);
-}
+        mn=min(mn,root->val);
+        mx=max(mx,root->val);
 
-
-void diff(TreeNode* root){
-    if(root==NULL){
-        return;
-    }
-
-    pre(root->val,root);
-    diff(root->left);
-    diff(root->right);
+        diff(root->left,mx,mn);
+        diff(root->right,mx,mn);
 
 }
+
+
+
+
+
+
+
+
+
 
     int maxAncestorDiff(TreeNode* root) {
-        diff(root);
-        return mx;
-
+        if(!root) return 0;
+        diff(root,root->val,root->val);
+        return diff1;
     }
 };
